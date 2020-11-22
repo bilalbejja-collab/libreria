@@ -262,3 +262,41 @@ if (isset($_POST['update_prestamo'])) {
     //Redirigimos a index.php con 
     header($url);
 }
+
+/**
+ *   GENERAR CSV PRAR LIBROS Y PARA USUARIOS
+ */
+
+if (isset($_GET['accion'])) {
+    if ($_GET['accion'] == "csvLibros") {
+        $libros = selectLibros();
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="libros.csv"');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        $output = fopen("php://output", "w");
+        fputcsv($output, array("ISBN", "Titulo", "Subtitulo", "Descripcion", "Autor", "Editorial", "Categoria", "Portada", "Total Ejemplares", "Ejemplares Disponibles"));
+        foreach ($libros as $libro) {
+            fputcsv($output, $libro);
+        }
+        fclose($output);
+        die;
+    }
+
+    if ($_GET['accion'] == "csvUsuarios") {
+        $usuarios = selectUsuarios();
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="usuarios.csv"');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        $output = fopen("php://output", "w");
+        fputcsv($output, array("DNI", "Nombre", "Apellidos", "Edad", "Dirección", "Población", "Teléfono", "Email"));
+        foreach ($usuarios as $usuario) {
+            fputcsv($output, $usuario);
+        }
+        fclose($output);
+        die;
+    }
+}

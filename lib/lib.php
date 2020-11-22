@@ -29,7 +29,7 @@ function conectar($basededatos)
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-*/
+    */
     //HEROKU CLEARDB
 
     //mysql://b5b63837293cf9:a3b72aad@eu-cdbr-west-03.cleardb.net/heroku_c1ce710b3a14a7d?reconnect=true
@@ -102,6 +102,32 @@ function hacerSelect($filtro, $pagina)
         $stmt = $conexion->prepare($consulta);
         if (strlen($filtro) > 0)
             $stmt->bindParam(":filtro", $filtro);
+        //Ejecutamos la consulta
+        $stmt->execute();
+        //Devolvemos los resultados
+        $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $conexion = null;
+    } catch (PDOException $e) {
+        file_put_contents("bd.log", $e->getMessage(), FILE_APPEND | LOCK_EX);
+    }
+
+    return $libros;
+}
+
+//Obtener todos los libros 
+function selectLibros()
+{
+    //Resultados por página a mostrar
+
+    try {
+        //Establecer conexión
+        $conexion = conectar("libreria");
+        //Para evitar problemas con caracteres especiales
+        $conexion->query("SET NAMES utf8");
+        //Consulta de todos los libros
+        $consulta = "SELECT * FROM libros ";
+        //Preparamos la consulta
+        $stmt = $conexion->prepare($consulta);
         //Ejecutamos la consulta
         $stmt->execute();
         //Devolvemos los resultados
@@ -315,6 +341,32 @@ function hacerSelectUsuarios($filtro, $pagina)
     return $libros;
 }
 
+//Obtener todos los usuarios 
+function selectUsuarios()
+{
+    //Resultados por página a mostrar
+
+    try {
+        //Establecer conexión
+        $conexion = conectar("libreria");
+        //Para evitar problemas con caracteres especiales
+        $conexion->query("SET NAMES utf8");
+        //Consulta de todos los libros
+        $consulta = "SELECT * FROM usuarios ";
+        //Preparamos la consulta
+        $stmt = $conexion->prepare($consulta);
+        //Ejecutamos la consulta
+        $stmt->execute();
+        //Devolvemos los resultados
+        $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $conexion = null;
+    } catch (PDOException $e) {
+        file_put_contents("bd.log", $e->getMessage(), FILE_APPEND | LOCK_EX);
+    }
+
+    return $libros;
+}
+
 //Insertar nuevo usuario
 function insertarUsuario($DNI, $nombre, $apellidos, $edad, $direccion, $poblacion, $telefono, $email)
 {
@@ -459,6 +511,33 @@ function hacerSelectPrestamos($filtro, $pagina)
     }
     return $libros;
 }
+
+//Obtener todos los prestamos 
+function selectPrestamos()
+{
+    //Resultados por página a mostrar
+
+    try {
+        //Establecer conexión
+        $conexion = conectar("libreria");
+        //Para evitar problemas con caracteres especiales
+        $conexion->query("SET NAMES utf8");
+        //Consulta de todos los libros
+        $consulta = "SELECT * FROM prestamos ";
+        //Preparamos la consulta
+        $stmt = $conexion->prepare($consulta);
+        //Ejecutamos la consulta
+        $stmt->execute();
+        //Devolvemos los resultados
+        $libros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $conexion = null;
+    } catch (PDOException $e) {
+        file_put_contents("bd.log", $e->getMessage(), FILE_APPEND | LOCK_EX);
+    }
+
+    return $libros;
+}
+
 
 //Insertar nuevo prestamo
 function insertarPrestamo($ISBN, $DNI, $fecha_inicio, $fecha_fin, $estado)

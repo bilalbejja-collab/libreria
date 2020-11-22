@@ -35,7 +35,7 @@ include_once("lib/lib.php");
 									</div>
 									<div class="col-sm-8">
 										<a href="#addLibroModal" class="btn btn-success" data-toggle="modal"><span>Añadir Libro</span></a>
-										<a href="#" class="btn btn-danger" data-toggle="modal"> <span>Generar CSV</span></a>
+										<a href="controlador.php?accion=csvLibros" class="btn btn-danger"> <span>Generar CSV</span></a>
 									</div>
 								</div>
 								<div class="row float-right">
@@ -143,7 +143,7 @@ include_once("lib/lib.php");
 									</div>
 									<div class="col-sm-8">
 										<a href="#addUsuarioModal" class="btn btn-success" data-toggle="modal"><span>Añadir Usuario</span></a>
-										<a href="#" class="btn btn-danger" data-toggle="modal"> <span>Generar CSV</span></a>
+										<a href="controlador.php?accion=csvUsuarios" class="btn btn-danger"> <span>Generar CSV</span></a>
 									</div>
 								</div>
 								<div class="row float-right">
