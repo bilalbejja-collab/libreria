@@ -16,6 +16,7 @@ function filtrado($datos)
 //Conexión a BD
 function conectar($basededatos)
 {
+    /*
     //CONECTAR EN LOCAL
     $MySQL_host = "Localhost";
     $MySQL_user = "root";
@@ -28,23 +29,21 @@ function conectar($basededatos)
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-
-    //HEROKU CLEARDB
-    /*      
-        //mysql://b5b63837293cf9:a3b72aad@eu-cdbr-west-03.cleardb.net/heroku_c1ce710b3a14a7d?reconnect=true
-        $MySQL_host = "eu-cdbr-west-03.cleardb.net";
-        $MySQL_user = "b5b63837293cf9";
-        $MySQL_password = "a3b72aad";
-        try {
-		    $dsn = "mysql:host=$MySQL_host;dbname=heroku_c1ce710b3a14a7d";
-            $conexion = new PDO($dsn, $MySQL_user,  $MySQL_password);
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conexion;
-		} catch (PDOException $e){
-		    echo $e->getMessage();
-		}
-    }
 */
+    //HEROKU CLEARDB
+
+    //mysql://b5b63837293cf9:a3b72aad@eu-cdbr-west-03.cleardb.net/heroku_c1ce710b3a14a7d?reconnect=true
+    $MySQL_host = "eu-cdbr-west-03.cleardb.net";
+    $MySQL_user = "b5b63837293cf9";
+    $MySQL_password = "a3b72aad";
+    try {
+        $dsn = "mysql:host=$MySQL_host;dbname=heroku_c1ce710b3a14a7d";
+        $conexion = new PDO($dsn, $MySQL_user,  $MySQL_password);
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conexion;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
 }
 
 /*
